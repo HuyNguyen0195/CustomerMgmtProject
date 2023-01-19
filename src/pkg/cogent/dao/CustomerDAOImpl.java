@@ -130,22 +130,35 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public void findYongestCustomer() {
 		// TODO Auto-generated method stub
 		SimpleDateFormat sdf=new SimpleDateFormat("mm-dd-yyyy");
-		Date date= sdf.parse(customers[0].getcDob());
-		int index=0;
-		for(int i=1; i<customers.length;i++) {
-			if(customers[i] == null ) continue;
-			Date cDate = sdf.parse(customers[i].getcDob());
-			if( date.compareTo(cDate) == 1  ) {
-				date = cDate;
-				index=i;
-			}
-		}
+		
+		try {
+			Date date= sdf.parse(customers[0].getcDob());
+			int index=0;
+				for(int i=1; i<customers.length;i++) {
+					if(customers[i] == null ) continue;
+					
+						Date cDate = sdf.parse(customers[i].getcDob());
+					if( date.compareTo(cDate) == 1  ) {
+						date = cDate;
+						index=i;
+					}
+				}
 		System.out.println("Customer ID:"+customers[index].getcId());
 		System.out.println("Customer  name:"+customers[index].getcName());
 		System.out.println("Customer e-mail:"+customers[index].getcEmail());
 		System.out.println("Customer Date of Birth: year-month-date"+customers[index].getcDob());
+		
+		} catch (ParseException e) {
+			// TODO: handle exception
+			System.out.println("customer not correct date format");
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			System.out.println("null customer");
+		}
+		
+		
 
 	}
-	}
+	
 
 }
